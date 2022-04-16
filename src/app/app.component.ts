@@ -18,14 +18,36 @@ export class AppComponent implements OnInit {
   ]
 
   ngOnInit(): void {
-      this.signupForm = new FormGroup({
-        'userData': new FormGroup({
-          'username': new FormControl(null, [Validators.required, this.isNameForbidden.bind(this)]),
-          'email': new FormControl(null, [Validators.email, Validators.required, this.forbiddenEmails.bind(this)])
-        }),
-        'gender': new FormControl('male'),
-        'hobbies': new FormArray([])
-      })
+    this.signupForm = new FormGroup({
+      'userData': new FormGroup({
+        'username': new FormControl(null, [Validators.required, this.isNameForbidden.bind(this)]),
+        'email': new FormControl(null, [Validators.email, Validators.required, this.forbiddenEmails.bind(this)])
+      }),
+      'gender': new FormControl('male'),
+      'hobbies': new FormArray([])
+    });
+    // this.signupForm.valueChanges.subscribe(
+    //   (value) => console.log(value)
+    // );
+    this.signupForm.statusChanges.subscribe(
+      (status) => console.log(status)
+    );
+    // this.signupForm.setValue({
+    //   'userData': {
+    //     'username': 'Bandera',
+    //     'email': 'bandera@ukraine.ua'
+    //   },
+    //   'gender': 'male',
+    //   'hobbies': []
+    // });
+    this.signupForm.patchValue({
+      'userData': {
+        'username': 'Bandera',
+        'email': 'bandera@ukraine.ua'
+      },
+      'gender': 'male',
+      'hobbies': []
+    });
   }
 
   onSubmit() {
